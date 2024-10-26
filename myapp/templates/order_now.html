@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order All Your favourite content here </title>
+</head>
+<body style='font-style: italic;'>
+    <table width='100%'>
+        <tr height='200px'>
+            <th style='background-color:  rgb(113, 81, 23); font-size: 30px; border-radius: 20px;'>
+                Chachu Super Store 
+            </th>
+        </tr>
+        <tr>
+            <th>
+                {% for x in messages %}
+                <p style='color:rgb(36, 24, 2)'>{{ x }}</p>
+                {% endfor %}
+            </th>
+        </tr>
+        <tr height='70px'><th style='font-size: 24px;'>
+           <a href="check_cart/" style='text-decoration: none;'>Check Your Cart</a> 
+        </th></tr>
+        <tr>
+            <th style='font-size: 20px;'>
+                Order Your Favourite Products Here 
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <form  method='POST' enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type='submit' value='Order' style='background-color: orange; font-size: 20px; border-radius: 20px;'>
+                </form>
+            </th>
+        </tr>
+        <tr height='280px'>
+            <th>All Rights are reserved at @Chachu Super Store</th>
+        </tr>
+    </table>
+
+    
+</body>
+</html>

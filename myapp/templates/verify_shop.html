@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify your shop data to get the access of your shop admin </title>
+</head>
+<body style='font-style: italic;'>
+    <table width='100%'>
+        <tr height='100px'>
+            <th style='background-color:  rgb(113, 81, 23); border-radius: 20px; font-size: 30px;'>
+                Chachu Super Store !!
+            </th>
+        </tr>
+        <tr height='100px'>
+            <th style='font-size: 20px;'>
+                Enter Your data to get admin access to your shop 
+            </th>
+        </tr>
+        <tr>
+            <th>{% for x in messages %}
+                    <p style='color: rgb(145, 21, 21);'>{{ x }}</p>
+                {% endfor %}
+            </th>
+        </tr>
+        <tr height='140px'>
+            <th>
+                <form method='POST' enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type='submit' value='Enter ' style='background-color: orange; border-radius: 20px;'><br><br><br>
+                    Forget shop ID ? <a href='forget_data/' style='text-decoration: none;'>Get</a>
+                </form>
+            </th>
+        </tr>
+        <tr height='240px'>
+            <th>
+                All Rights Are Reserved At @Chchu Super Store
+            </th>
+        </tr>
+    </table>
+</body>
+</html>

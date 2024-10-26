@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload the products</title>
+</head>
+<body style='font-style: italic;'>
+    <table width='100%'>
+        <tr height='100px'>
+            <th style='background-color: rgb(113, 81, 23); border-radius: 20px; font-size: 30px;'>Chachu Super Store </th>
+        </tr>
+        <tr height='40px'>
+            <th>
+                {% for x in messages %}
+                    <p style='color:  rgb(113, 81, 23);'>{{ x }}</p>
+                {% endfor %}
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <form method='POST' enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type='submit' value='Upload' style='border-radius: 20px; background-color: grey; color: orange;'>
+
+                </form>
+            </th>
+        </tr>
+    </table>
+    
+</body>
+</html>

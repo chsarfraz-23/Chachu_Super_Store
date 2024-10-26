@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Shop</title>
+    <style>
+        .menu tr th {
+            background-color: grey;
+            font-size: 30px;
+        }
+        .menu tr {
+            height: 40px;
+        }
+        .menu tr th:hover{
+            background-color: rgb(113, 81, 23);
+        }
+        .menu tr th a:hover{
+            color: orange;
+        }
+        .menu tr th a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body style='font-style: italic;'>
+    <table width='100%'>
+        <tr height='100px'>
+            <th style='background-color:  rgb(113, 81, 23); border-radius: 30px; font-size: 20px;'>
+                Chachu Super Store !! 
+            </th>
+        </tr>
+        <tr height='30px'></tr>
+            <tr>
+                <th>
+                    <img src='{{ object1.image.url }}' width='900px' height='300px' style='border-radius: 30px;'>
+                </th>
+            </tr>
+            <tr>
+                <th>{{ object1.name }}
+                </th>
+            </tr>
+        <tr height='30px'></tr>
+    </table>
+    <div class='menu'>
+    <table width='100%'>
+        <tr>
+        <th><a href=''>Remove Product </a></th>
+            <th><a href='upload/'>Upload a product</a> </th>
+        </tr>
+    </table>
+    </div>
+    </body>
+    
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome To Chachu Super Store </title>
+</head>
+<body>
+    <table width='100%' style='font-style: italic;'>
+        <tr height='200px'>
+            <th style='font-size: 30px; border-radius: 20px; background-color:  rgb(113, 81, 23);'>
+                Welcome To Chachu Super Store !!!
+            </th>
+        </tr>
+        <tr height='40px'></tr>
+        <tr>
+            <th style='font-size: 20px;'>
+                Provide Your Data So Can Serve You 
+            </th>
+        </tr>
+        <tr height='30px'></tr>
+        <tr>
+            <th>
+                <form method='POST' enctype='multipart/form-data'>
+                    {% for x in messages %}
+                        <p style='color:  rgb(113, 81, 23);'>{{ x }}</p>
+                    {% endfor %}
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type='submit' value='Signup' style='background-color: orange; border-radius: 10px; padding: 4px;'><br><br><br>
+                    Already have an account ? <a href='login/' style='text-decoration: none;'>Login</a><br><br>
+                </form>
+            </th>
+        </tr>
+        <tr height='140px'>
+            <th> All Rights Are Reserved at @Chachu Super Store
+            </th>
+                </tr>
+    </table>
+    
+</body>
+</html>

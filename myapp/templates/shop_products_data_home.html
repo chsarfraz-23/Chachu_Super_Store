@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping stores Chachu Super Store </title>
+    <style>
+        .cart tr th a{
+            background-color: grey;
+            padding: 13px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.485);
+        }
+        .cart tr th a:hover{
+            background-color: rgb(211, 145, 21);
+            color: white;
+        }
+    </style>
+</head>
+<body style='font-style: italic;'>
+    <table width='100%'>
+        <tr height='100px'>
+            <th style='background-color:  rgb(113, 81, 23); border-radius: 20px; font-size: 30px;'>
+                Chachu Super Store !!! 
+            </th>
+        </tr>
+        <tr height='70px'>
+            <th colspan='9'>
+                <img src="{{ object.image.url }}" alt="Advertise of shop" width='900px' height='400px' style='border-radius: 20px;'>
+            </th>
+        </tr>
+        <tr height='30px'></tr>
+    </table>
+        {% for x in object2 %}
+        <table width='100%'>
+        <tr>
+            <th colspan='4'>
+                <img src="{{ x.image.url }}" alt="shop images " height='300px' style='border-radius: 20px;'>
+            </th>
+        </tr>
+        <tr height='40px'>
+            <th colspan='4'>{{ x.description }}</th>
+        </tr>
+    </table>
+    <div class='cart'>
+    <table width='100%' >
+        <tr height='90px'>
+            <th><a href='shops_cart/{{ x.id }}/'>Add To Cart</a></th>
+        </tr>
+    </table>
+    </div>
+        {% endfor %}
+    </table>
+</body>
+</html>

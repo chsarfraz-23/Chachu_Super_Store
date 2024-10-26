@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Recovery page Chachu Super Store </title>
+</head>
+<body style='font-style: italic;'>
+    <table align='center' width='100%'>
+    <tr height='140px'>
+        <th style='font-size: 30px; background-color:  rgb(113, 81, 23); border-radius: 20px;'>
+            Chachu Super Store 
+        </th>
+    </tr>
+    <tr height='70px'>
+        <th>Provide your email to get your shop ID </th>
+    </tr>
+    <tr>
+        <th>
+            <form method='POST' enctype='multipart/form-data'>
+                {% for x in messages %}
+                    <p style='color:red; font-style:"italic';>{{ x }}</p>
+                {% endfor %}
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type='submit' value='GET' style='background-color: orange; border-radius: 20px;'>
+            </form>
+        </th>
+    </tr>
+    </table>
+</body>
+</html>

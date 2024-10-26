@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The verified shops are here to serve you </title>
+</head>
+<body>
+    <table width='100%'>
+        <tr height='200px'>
+            <th style='background-color: rgb(113, 81, 23); border-radius: 20px; font-size: 40px;'>Chachu Super Store </th>
+        </tr>
+        <tr height='40px'></tr>
+        {% for x in object %}
+        <tr>
+            <th>
+            <img src='{{ x.image.url }}' width='400px' height='400px' style='border-radius: 30px;'>
+            </th>
+        </tr>
+        <tr>
+            <th><a href='shops_data_home/{{ x.shop_id }}/' style='text-decoration: none; font-size: 20px;'>{{ x.name }}</a></th>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

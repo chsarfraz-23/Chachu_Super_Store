@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mian Products Details </title>
+</head>
+<body style='font-style: italic; '>
+    <table width='100%' border='2' style='border-top-right-radius: 20px; border-top-left-radius: 20px;'>
+        <tr height='140px'>
+            <th style='font-size: 30px; border-radius: 20px; background-color:  rgb(113, 81, 23);' colspan='10'>
+                Welcome To Chachu Super Store !!!
+            </th>
+            <tr>
+                <th colspan='9'>
+                    {% for x in messages %}
+                      <p style='color:  rgb(113, 81, 23);'>{{ x }}</p>
+                    {% endfor %}
+                </th>
+            </tr>
+        </tr>
+        <tr height='30px'></tr>
+        <tr style='background-color: grey;'>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Adress</th>
+            <th>Discount</th>
+            <th>Postal Code</th>
+        </tr>
+            <tr >
+                <th><img src='{{ object.image.url }}' width='300px' height='300px' style='border-radius: 20px;'></th>
+                <th>{{ object.name}}</th>
+                <th>{{ object.description }}</th>
+                <th>{{ object.price }}</th>
+                <th>{{ object.adress }}</th>
+                <th>{{ object.discount }}</th>
+                <th>{{ object.postal_code }}</th>
+                <th><a href='cart/{{object.id}}/' style='text-decoration: none;'>Add to cart</a></th>
+            </tr>
+    </table>
+    
+</body>
+</html>

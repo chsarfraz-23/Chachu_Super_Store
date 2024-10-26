@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page Of our Web sitet</title>
+    <style>
+        .cart tr th{
+            height: 90px;
+            width: 140px;
+            background-color: rgb(17, 96, 116);
+            border-radius: 30px;
+        }
+        .cart tr th a{
+            text-decoration: none;
+            color: gainsboro;
+            font-style: italic;
+        }
+        .cart tr th:hover{
+            background-color: rgba(184, 123, 10, 0.826);
+        }
+        .cart tr th a:hover{
+            color: white;
+        }
+        </style>
+        <style>
+            .options tr th {
+                background-color: grey;
+                width: 190px;
+                height: 140px;
+                border-radius: 30px;
+            }
+            .options tr th:hover{
+                background-color: rgb(16, 107, 102);
+
+            }
+            .options tr th a{
+                text-decoration: none;
+                font-style: italic;
+                font-size: 14px;
+                color: rgb(106, 5, 64);
+                font-size: 20px;
+            }
+            .options tr th a:hover{
+                color: orange;
+
+            }
+            .options tr th ul li{
+                list-style: none;
+                color: rgb(106, 5, 64);
+                font-size: 20px;
+                position: absolute;
+            }
+            .options tr th ul ul li{
+                display: none;
+            }
+            .options tr th ul li:hover ul li{
+                display: block;
+            }
+            </style>
+            <style>
+                .logout tr th a{
+                    /* background-color:  grey; */
+                    padding: 7px;
+                    text-decoration: none;
+                    border-top-right-radius: 20px;
+                    font-style: italic;
+                    font-size: 30px;
+                }
+            </style>
+
+</head>
+<body>
+    <div class='logout'>
+    <table align='Right'>
+        <tr>
+            <th><a href='logout/'>Logout</a></th>
+            <!-- <th width='7px'></th> -->
+        </tr>
+    </table>
+    </div>
+    <table width='100%'>
+        <tr height='200px'>
+            <th style='font-size: 40px;  background-color: rgb(113, 81, 23); border-radius: 20px; font-style: italic; border-top-right-radius: 0px;'>
+                Chachu Super store
+            </th>
+        </tr>
+        </tr>
+            <tr height='100px'>
+                <th style='font-size: 24px; font-style: italic;'> 
+                    Welcome To Chachu Super Store  !!!
+                </th>
+        </tr>
+        <tr height='70px'>
+            <th>
+                {% for x in messages %}
+                  <p style='color:  rgb(113, 81, 23); font-style: italic;'>{{ x }}</p>
+                {% endfor %}
+            </th>
+        </tr>
+    </table>
+    <div class='options'>
+    <table align='center'>
+        <tr>
+            <th><a href='order_now/'>Order Now</th>
+            <th><a href='check_cart/'>Check Your Cart</a></th>
+            <th><a href='upload_products/'>Sale Your Product</a></th>
+            <th><a href='check_plan/'>Check Your plan </th>
+            <th><a href='open_your_shop/'>Shop</a></th>
+            <th><a href='shopping_store/'>Shopping Stores </a></th>
+        </tr>
+        <tr height='70px'></tr>
+    </table>
+    </div>
+    <marquee direction='left' scrollamount='6'>
+         <table>
+            <tr>
+    {% for x in object2 %}
+            <th>
+        <a href='main_detail/{{ x.id}}/'>
+            <img src='{{ x.image.url }}' width='200px' height='200px' style='border-radius: 30px;'></a><br>
+                <p>Rs= {{ x.price }}</p>
+            </th>
+    {% endfor %}    
+            </tr>
+            <tr height='40px'></tr>
+          </table>
+    </marquee>
+{% for x in object1 %}
+<table align='center'>
+        <tr>
+        <th>
+            <img src='{{ x.image.url }}' width='300px' height='300px' style='border-radius: 30px;'>
+        </th>
+        </tr>
+        <tr>
+            <th style='border: 3px solid ; border-radius: 30px; font-style: italic;' height='40px'>
+                {{ x.description }}
+            </th>
+        </tr>
+        <tr height='23px'></tr>
+</table>
+<div class='cart'>
+<table align='center'>
+    <tr>
+        <th>
+            <a href='cart/{{ x.id }}'>Add To The Cart</a> 
+        </th>
+    </tr>
+</table>
+</div>
+    {% endfor %}
+</body>
+</html>

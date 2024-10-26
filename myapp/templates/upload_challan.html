@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload your Challan From Chachu Super Store </title>
+</head>
+<body>
+    <table width='100%' style='font-style: italic;'>
+        <tr height='200px'>
+            <th style=' border-radius: 30px; background-color:   rgb(113, 81, 23); font-size: 30px;'>
+                Chachu Super Store
+            </th>
+        </tr>
+        <tr height='40px'>
+        </tr>
+        <tr>
+            <th>
+                {% for x in messages %}
+                    <p >{{ x }}</p>
+                {% endfor %}
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <form method='POST' enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type='submit'  value='Upload' style='background-color: orange; border-radius: 20px;'>
+                </form>
+            </th>
+        </tr>
+    </table>
+    
+</body>
+</html>

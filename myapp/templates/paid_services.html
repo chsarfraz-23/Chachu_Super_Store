@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paid Services Of  ours website </title>
+</head>
+<body>
+    <table width='100%'>
+        <tr height='70px'>
+            <th colspan='4' style='font-size: 20px;  border-radius: 30px; background-color:  rgb(113, 81, 23);'>
+                Upload Your Product to main View 
+            </th>
+        </tr>
+        <tr height='40px'></tr>
+        <tr>
+            <th style='font-size: 17px;' colspan='4'>Choose Your Plan 
+            </th>
+        </tr>
+        <tr height='20px'></tr>
+        {% for x in object %}
+        <tr>
+            <th>
+                <img src='{{ x.image.url }}' width='300px' height='200px' style='border-radius: 30px;'>
+            </th>
+            <th>
+                {{ x.duration }}
+            </th>
+            <th>
+                Rs {{ x.price }}
+            </th>
+            <th>
+                <a href='select_plan/' style='border-radius: 10px; padding: 4px; background-color: orange;'>Select</a>
+            </th>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

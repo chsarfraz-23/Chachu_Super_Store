@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View_Challan_Requests from Chachu Super Store</title>
+</head>
+<body>
+    <table width='100%'>
+        <tr height='70px'>
+            <th colspan='4' style='border-radius: 20px; background-color:  rgb(113, 81, 23);'>
+                Chachu Super Store
+            </th>
+        </tr>
+        <tr height='100px'>
+            <th style='font-size: 30px;' colspan='4'>
+                Check the Valid Requests an allow them to add their product 
+            </th>
+        </tr>
+        <tr height='40px'></tr>
+        {% for x in object %}
+        <tr>
+            <th><img src='{{ x.send.url }}' width='300px' height='300px' style='border-radius: 20px; '></th>
+            <th><a href='allowed/' style='text-decoration: none;'>allow</a></th>
+            <th><a href='reject/{{ x.id }}/' style='text-decoration: none;'>Reject</a></th>
+        </tr>
+        {% endfor %}
+    </table>    
+</body>
+</html>

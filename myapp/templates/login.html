@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login To Chachu Super Store </title>
+</head>
+<body>
+    <table width='100%' style='font-style: italic;'>
+        <tr height='200px'>
+            <th style='background-color:  rgb(113, 81, 23); border-radius: 20px; font-size: 30px;'>
+                Chachu Super Store !!!
+            </th>
+        </tr>
+        <tr height='30px'></tr>
+        <tr height='40px'>
+            <th style='font-size: 20px; font-weight: bold;'>
+                 Provide Your Data To Login 
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <form method='POST' enctype='multipart/form-data'>
+                    {% for x in messages %}
+                        <p style='color:  rgb(113, 81, 23);'>{{ x }}</p>
+                    {% endfor %}
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type='submit' value='Login' style='background-color: orange; border-radius: 10px; padding: 7px; width: 80px;'><br><br><br><br>
+                    <a href='' style="text-decoration:none;">Forget password</a>
+                </form>
+            </th>
+        </tr>
+        <tr height='140px'>
+            <th>
+                All Rights Are Reserved At @Chachu Super Store
+            </th>
+        </tr>
+    </table>
+</body>
+</html>

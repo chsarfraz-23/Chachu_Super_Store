@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add your favourite products to your cart </title>
+</head>
+<body>
+    <table align='center' width='100%' border='2px' style='border-radius: 10px;'>
+        <tr height='70px'>
+            <th style='font-size: 30px; border: none; background-color:  rgb(113, 81, 23); border-top-right-radius: 10px; border-top-left-radius: 10px;' colspan='10'>
+                All Your Favourite Products are here 
+            </th>
+        </tr>
+        <tr height='40px'>
+            <th colspan='9'>
+                {% for x in messages %}
+                <p style='color: rgb(113, 81, 23) ;'>{{ x }}</p>
+                {% endfor %}
+            </th>
+        </tr>
+        <tr style='background-color: grey; border-bottom-right-radius: 10px;'>
+            <th>Image</th>
+            <th>Name </th>
+            <th>Description</th>
+            <th>Price </th>
+            <th>Adress </th>
+            <th>Discount</th>
+            <th>Postal Code</th>
+            <th>Platform </th>
+        </tr>
+        {% for x in object %}
+            <tr height='200px' style='font-style: italic;'>
+                <th><img src=' {{ x.image.url }}' height='200px' width='300px' style='border-radius: 20px;'></th>
+                <th>{{ x.name }}</th>
+                <th>{{ x.description }}</th>
+                <th>{{ x.price }}</th>
+                <th>{{ x.adress }}</th>
+                <th>{{ x.discount }}</th>
+                <th>{{ x.postal_code }}</th>
+                <th>{{ x.platform }}</th>
+                <th>
+                                        <p style='font-size: 20px; background-color: orange; padding: 4px; color: red;'><a href='remove_from_cart/{{ x.id }}/' style='text-decoration: none;'>Remove from Cart</a> </p></th>
+            </tr>
+            <tr height='20px'></tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

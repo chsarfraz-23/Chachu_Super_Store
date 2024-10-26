@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Your Online Shop </title>
+</head>
+<body style='font-style: italic;'>
+    <table width='100%'>
+        <tr height='200px'>
+            <th style='background-color:  rgb(113, 81, 23); font-size: 40px; border-radius: 20px;'>
+                Chachu Super Store !!
+            </th>
+        </tr>
+        <tr>
+            <th>
+                {% for x in messages %}
+                    <p style='color: red'>{{x}}</p>
+                {% endfor %}
+            </th>
+        </tr>
+        <tr height='100px'>
+            <th style='color: grey; font-size: 30px;'>
+                <a href='verify_shop/' style='text-decoration: none;'>Maintain Shop</a>
+            </th>
+        </tr>
+        <tr height='100px'>
+            <th style='font-size: 30px;'>
+                Open Your Shop Here !! <a href='' style='text-decoration: none;'>How?</a>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <form method='POST' enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type='submit' value='Upload ' style='background-color: orange; border-radius: 20px;'>
+            </th>
+        </tr>
+    </table>
+    
+</body>
+</html>
