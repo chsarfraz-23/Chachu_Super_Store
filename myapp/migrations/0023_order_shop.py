@@ -6,37 +6,53 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0022_remove_temporary_id_alter_temporary_email'),
+        ("myapp", "0022_remove_temporary_id_alter_temporary_email"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=300)),
-                ('description', models.CharField(max_length=1000)),
-                ('price', models.CharField(max_length=300)),
-                ('adress', models.CharField(max_length=1000)),
-                ('email', models.EmailField(max_length=100)),
-                ('discount', models.CharField(max_length=400)),
-                ('image', models.ImageField(upload_to='home_products')),
-                ('postal_code', models.CharField(max_length=100)),
-                ('platform', models.CharField(max_length=200)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=300)),
+                ("description", models.CharField(max_length=1000)),
+                ("price", models.CharField(max_length=300)),
+                ("adress", models.CharField(max_length=1000)),
+                ("email", models.EmailField(max_length=100)),
+                ("discount", models.CharField(max_length=400)),
+                ("image", models.ImageField(upload_to="home_products")),
+                ("postal_code", models.CharField(max_length=100)),
+                ("platform", models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='Shop',
+            name="Shop",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('father_name', models.CharField(max_length=100)),
-                ('phone_number', models.CharField(max_length=100)),
-                ('email', models.EmailField(max_length=70)),
-                ('password', models.CharField(max_length=40)),
-                ('cnic', models.CharField(max_length=16)),
-                ('country', models.CharField(max_length=100)),
-                ('image', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("father_name", models.CharField(max_length=100)),
+                ("phone_number", models.CharField(max_length=100)),
+                ("email", models.EmailField(max_length=70)),
+                ("password", models.CharField(max_length=40)),
+                ("cnic", models.CharField(max_length=16)),
+                ("country", models.CharField(max_length=100)),
+                ("image", models.CharField(max_length=100)),
             ],
         ),
     ]

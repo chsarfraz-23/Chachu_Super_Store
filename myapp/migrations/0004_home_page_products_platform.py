@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0003_home_page_products_image'),
+        ("myapp", "0003_home_page_products_image"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='home_page_products',
-            name='platform',
-            field=models.CharField(default='', max_length=200),
+            model_name="home_page_products",
+            name="platform",
+            field=models.CharField(default="", max_length=200),
             preserve_default=False,
         ),
     ]

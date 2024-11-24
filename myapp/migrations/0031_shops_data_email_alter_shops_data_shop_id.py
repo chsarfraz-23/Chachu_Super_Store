@@ -6,19 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0030_alter_shop_products_description'),
+        ("myapp", "0030_alter_shop_products_description"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='shops_data',
-            name='email',
-            field=models.CharField(default=1, max_length=100, primary_key=True, serialize=False),
+            model_name="shops_data",
+            name="email",
+            field=models.CharField(
+                default=1, max_length=100, primary_key=True, serialize=False
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='shops_data',
-            name='shop_id',
+            model_name="shops_data",
+            name="shop_id",
             field=models.CharField(max_length=100),
         ),
     ]

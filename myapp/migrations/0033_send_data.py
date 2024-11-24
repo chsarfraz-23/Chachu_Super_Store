@@ -6,16 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0032_alter_shops_data_email_alter_shops_data_shop_id'),
+        ("myapp", "0032_alter_shops_data_email_alter_shops_data_shop_id"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Send_data',
+            name="Send_data",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('shop_id', models.CharField(max_length=100)),
-                ('email', models.EmailField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("shop_id", models.CharField(max_length=100)),
+                ("email", models.EmailField(max_length=100)),
             ],
         ),
     ]

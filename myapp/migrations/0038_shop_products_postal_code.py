@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0037_shop_products_discout_shop_products_email_and_more'),
+        ("myapp", "0037_shop_products_discout_shop_products_email_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='shop_products',
-            name='postal_code',
-            field=models.CharField(default='', max_length=100),
+            model_name="shop_products",
+            name="postal_code",
+            field=models.CharField(default="", max_length=100),
             preserve_default=False,
         ),
     ]
