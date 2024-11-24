@@ -9,8 +9,8 @@ from myapp.models import (
     Plan,
     Cart,
     Challan,
-    Temporary,Shop,
-    Approved_shops,Shops_data,Shop_products,Send_data,UserProfile
+    Temporary, Shop,
+    ApprovedShops, ShopsData, ShopProducts, SendData, UserProfile
 )
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
@@ -21,7 +21,7 @@ from rest_framework import status
 
  
 from rest_framework.response import Response
-from myapp.serializers import Main_products_serializer,Plain_serializer,Shop_serializer,Signup_serializer,Approvedshops_serializer
+from myapp.serializers import MainProductSerializer,PlanSerializer,ShopSerializer,SignupSerializer,ApprovedshopSerializer
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string 
 from django.utils.html import strip_tags
@@ -29,6 +29,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 # Create your views here.
 import sqlite3
+
+from myapp.tasks import shop_approval_msg
+
 connection=sqlite3.connect('db.sqlite3',check_same_thread=False)
 cursor=connection.cursor()
 def my_verification(a):
@@ -48,27 +51,27 @@ def Home(request):
         sarfraz.delete()
         return Response(status=status.HTTP_200_OK)
     elif request.method=="POST":
-        my_serializer=Signup_serializer(data=request.data)
+        my_serializer=SignupSerializer(data=request.data)
         if my_serializer.is_valid():
             my_serializer.save()
             return Response(my_serializer.data,status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST) 
     elif request.method=="GET":
-        my_serializer=Signup_serializer(sarfraz,many=True)
+        my_serializer=SignupSerializer(sarfraz, many=True)
         return Response(my_serializer.data,status=status.HTTP_200_OK)           
 @api_view(['POST','GET','DELETE'])
 def post(request):
     sarfraz=Home_page_products.objects.all()
     if request.method=="POST":
-        my_serializer=Main_products_serializer(data=request.data)
+        my_serializer=MainProductSerializer(data=request.data)
         if my_serializer.is_valid():
             my_serializer.save()
             return Response(my_serializer.data,status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)    
     elif request.method=="GET":
-        my_serializer=Main_products_serializer(sarfraz,many=True)
+        my_serializer=MainProductSerializer(sarfraz, many=True)
         return Response(my_serializer.data)    
     elif request.method=="DELETE":
         sarfraz.delete()
@@ -77,7 +80,7 @@ def post(request):
 def mannually(request,id):
     sarfraz=Home_page_products.objects.get(pk=id)
     if request.method=="PUT":
-        my_serializer=Main_products_serializer(data=request.data)
+        my_serializer=MainProductSerializer(data=request.data)
         if my_serializer.is_valid():
             my_serializer.save()
             return Response(my_serializer.data,status=status.HTTP_200_OK)
@@ -91,24 +94,24 @@ def mannually(request,id):
         sarfraz.postal_code=request.data.get('postal_code',sarfraz.postal_code)
         sarfraz.platform=request.data.get('platform',sarfraz.platform)
         sarfraz.save()
-        my_serializer=Main_products_serializer(sarfraz)
+        my_serializer=MainProductSerializer(sarfraz)
         return Response(my_serializer.data,status=status.HTTP_200_OK)
     elif request.method=="DELETE":
         sarfraz.delete()
         return Response(status=status.HTTP_200_OK)  
     elif request.method=="GET":
-        my_serializer=Main_products_serializer(sarfraz)
+        my_serializer=MainProductSerializer(sarfraz)
         return Response(my_serializer.data,status=status.HTTP_200_OK) 
 @api_view(['GET','POST','DELETE'])
 def paid_plan(request):
     sarfraz=Plan.objects.all()
     if request.method=="POST":
-        my_serailizer=Plain_serializer(data=request.data)
+        my_serailizer=PlanSerializer(data=request.data)
         if my_serializer.is_valid():
             my_serializer.save()
             return Response(my_serializer.data,status=status.HTTP_201_CREATED)
     elif request.method=="GET":
-        my_serializer=Plain_serializer(sarfraz,many=True)
+        my_serializer=PlanSerializer(sarfraz, many=True)
         return Response(my_serializer.data,status=status.HTTP_200_OK)
     elif request.method=="DELETE":
         sarfraz.delete()
@@ -117,7 +120,7 @@ def paid_plan(request):
 def main_products_api(request):
     sarfraz=Main_products.objects.all()
     if request.method=="GET":
-        my_serializer=Main_products_serializer(sarfraz,many=True)
+        my_serializer=MainProductSerializer(sarfraz, many=True)
         return Response(my_serializer.data,status=status.HTTP_200_OK)
     elif request.method=="DELETE":
         sarfraz.delete()
@@ -126,14 +129,14 @@ def main_products_api(request):
 def shop_api(request,id):
     sarfraz=Shop.objects.get(pk=id)
     if request.method=="POST":
-        my_serializer=Shop_serializer(data=request.data)
+        my_serializer=ShopSerializer(data=request.data)
         if my_serializer.is_valid():
             my_serializer.save()
             return Response(my_serializer.data,status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST) 
     elif request.method=="GET":
-        my_serializer=Shop_serializer(sarfraz)
+        my_serializer=ShopSerializer(sarfraz)
         return Response(my_serializer.data,status=status.HTTP_200_OK)
     elif request.method=="DELETE":
         sarfraz.delete()
@@ -155,35 +158,42 @@ def shop_overall(request):
     if request.method=="DELETE":
         sarfraz.delete()
         return Response(status=status.HTTP_200_OK)        
-@api_view(['POST','GET','DELETE'])
-def shop_approved_api(request):
-    sarfraz=Approved_shops.objects.all()
-    if request.method=="POST":
-        my_serializer=Approvedshops_serializer(data=request.data)
+
+
+@api_view(['POST', 'GET', 'DELETE'])
+def approve_shop(request):
+    approved_shops = ApprovedShops.objects.all()
+    if request.method == "POST":
+        my_serializer = ApprovedshopSerializer(data=request.data)
         if my_serializer.is_valid():
-            my_serializer.save()
+            shop_approved = my_serializer.save()
+            shop_approval_msg.delay(approved_shop=shop_approved)
             return Response(status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST) 
-    elif request.method=="GET":
-        my_serializer=Approvedshops_serializer(sarfraz,many=True)
-        return Response(my_serializer.data,status=status.HTTP_200_OK) 
-    elif request.method=="DELETE":
-        obj=Shops_data.objects.all()
+
+    elif request.method == "GET":
+        my_serializer = ApprovedshopSerializer(approved_shops, many=True)
+        return Response(my_serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == "DELETE":
+        obj = ShopsData.objects.all()
         obj.delete()
-        obj1=Shop_products.objects.all()
+        obj1 = ShopProducts.objects.all()
         obj1.delete()
-        obj2=Send_data.objects.all()
+        obj2 = SendData.objects.all()
         obj2.delete()
-        obj4=Temporary.objects.all()
+        obj4 = Temporary.objects.all()
         obj4.delete()
-        obj3=Shop.objects.all()
+        obj3 = Shop.objects.all()
         obj3.delete()
-        sarfraz.delete()
+        approved_shops.delete()
         return Response(status=status.HTTP_200_OK)
+
+
 @api_view(['DELETE'])
 def shop_data(request):
-    sarfraz=Shops_data.objects.all() 
+    sarfraz=ShopsData.objects.all()
     if request.method=="DELETE":
         sarfraz.delete()
         return Response(status=status.HTTP_200_OK)            
@@ -270,7 +280,7 @@ def cart_main(request,id,id2):
         return HttpResponseRedirect(my_url)
 
 def shop_cart(request,id,id2):
-    obj=Shop_products.objects.get(pk=id2)   
+    obj=ShopProducts.objects.get(pk=id2)
     try:
         Cart.objects.create(
         id=obj.id,
@@ -536,7 +546,7 @@ def show_shop_data(request):
     return render(request,"show_shop.html",context)
 def approve_shop(request,id):
     obj=Shop.objects.get(pk=id)
-    Approved_shops.objects.create(
+    ApprovedShops.objects.create(
         name=obj.name,
         father_name=obj.father_name,
         phone_number=obj.phone_number,
@@ -547,12 +557,12 @@ def approve_shop(request,id):
         country=obj.country,
         image=obj.image
         )
-    Shops_data.objects.create(
+    ShopsData.objects.create(
         shop_id=obj.shop_id,
         shop_name=obj.name,
         email=obj.email
     )    
-    Send_data.objects.create(
+    SendData.objects.create(
         name=obj.name,
         shop_id=obj.shop_id,
         email=obj.email,
@@ -560,7 +570,7 @@ def approve_shop(request,id):
     obj.delete()    
     return HttpResponse("<h1 align='center'>The shop is approved successfully !!! </h1>")
 def shopping_stores(request):
-    obj=Approved_shops.objects.all()
+    obj=ApprovedShops.objects.all()
     context={
         "object":obj
     }
@@ -592,7 +602,7 @@ def verify_shop_f(request):
     }        
     return render(request,"verify_shop.html.",context)
 def my_shop(request,id):
-    obj1=Approved_shops.objects.get(pk=id)
+    obj1=ApprovedShops.objects.get(pk=id)
     context={
         "object1":obj1,
     }
@@ -644,7 +654,7 @@ def upload_product_on_shop(request,id):
     if request.method=="POST":
         form=Home_products(request.POST,request.FILES)
         if form.is_valid():
-            Shop_products.objects.create(**form.cleaned_data)
+            ShopProducts.objects.create(**form.cleaned_data)
             messages.success(request,"The product is uploaded successfully !! ")
     context={
         "form":form
@@ -652,8 +662,8 @@ def upload_product_on_shop(request,id):
     return render(request,"shop_products_upload.html",context)    
 
 def shops_data_home(request,id):
-    obj=Approved_shops.objects.get(pk=id)
-    obj2=Shop_products.objects.all()
+    obj=ApprovedShops.objects.get(pk=id)
+    obj2=ShopProducts.objects.all()
     context={
         "object":obj,
         "object2":obj2

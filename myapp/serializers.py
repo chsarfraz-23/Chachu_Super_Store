@@ -1,37 +1,34 @@
 from rest_framework import serializers
 from myapp.models import (
-    Main_products,
-    Plan,Shop,
-    Sign_up,Approved_shops
+    ApprovedShops, MainProducts, Plan, Shop, SignUp
 )
-class Main_products_serializer(serializers.ModelSerializer):
+
+
+class MainProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Main_products
-        fields=[
-            'name','description','price','adress','discount','image','postal_code','platform'
-        ]
-class Plain_serializer(serializers.ModelSerializer):
+        model = MainProducts
+        fields = "__all__"
+
+
+class PlanSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Plan
-        fields=[
-        'duration','price','image'
-        ]
-        
-class Shop_serializer(serializers.ModelSerializer):
+        model = Plan
+        fields = "__all__"
+
+
+class ShopSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Shop
-        fields=[
-            'name','father_name','phone_number','email','password','cnic','country','image'
-            ]        
-class Signup_serializer(serializers.ModelSerializer):
+        model = Shop
+        fields="__all__"
+
+
+class SignupSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Sign_up     
-        fields=[
-            'name','father_name','phone_number','email','password'
-        ]   
-class Approvedshops_serializer(serializers.ModelSerializer):
+        model = SignUp
+        fields = "__all__"
+
+
+class ApprovedShopSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Approved_shops
-        fields=[
-            'shop_id','name','father_name','phone_number','email','password','cnic','country','image'
-        ]
+        model = ApprovedShops
+        fields = "__all__"
