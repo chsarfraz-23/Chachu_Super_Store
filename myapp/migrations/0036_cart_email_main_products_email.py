@@ -6,20 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0035_send_data_name'),
+        ("myapp", "0035_send_data_name"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='cart',
-            name='email',
-            field=models.EmailField(default='', max_length=100),
+            model_name="cart",
+            name="email",
+            field=models.EmailField(default="", max_length=100),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='main_products',
-            name='email',
-            field=models.EmailField(default='', max_length=100),
+            model_name="main_products",
+            name="email",
+            field=models.EmailField(default="", max_length=100),
             preserve_default=False,
         ),
     ]

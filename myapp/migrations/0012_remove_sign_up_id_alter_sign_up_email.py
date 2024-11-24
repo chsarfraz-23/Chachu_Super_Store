@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0011_sign_up'),
+        ("myapp", "0011_sign_up"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='sign_up',
-            name='id',
+            model_name="sign_up",
+            name="id",
         ),
         migrations.AlterField(
-            model_name='sign_up',
-            name='email',
+            model_name="sign_up",
+            name="email",
             field=models.EmailField(max_length=200, primary_key=True, serialize=False),
         ),
     ]

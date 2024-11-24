@@ -6,18 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0027_shops_data'),
+        ("myapp", "0027_shops_data"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Shop_products',
+            name="Shop_products",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('description', models.CharField(max_length=100)),
-                ('price', models.CharField(max_length=100)),
-                ('adress', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("description", models.CharField(max_length=100)),
+                ("price", models.CharField(max_length=100)),
+                ("adress", models.CharField(max_length=100)),
             ],
         ),
     ]

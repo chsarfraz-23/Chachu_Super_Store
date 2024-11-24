@@ -6,19 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0010_rename_upload_challan_send'),
+        ("myapp", "0010_rename_upload_challan_send"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Sign_up',
+            name="Sign_up",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('father_name', models.CharField(max_length=100)),
-                ('phone_number', models.CharField(max_length=12)),
-                ('email', models.EmailField(max_length=200)),
-                ('password', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("father_name", models.CharField(max_length=100)),
+                ("phone_number", models.CharField(max_length=12)),
+                ("email", models.EmailField(max_length=200)),
+                ("password", models.CharField(max_length=100)),
             ],
         ),
     ]

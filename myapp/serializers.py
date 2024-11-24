@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from myapp.models import (
-    ApprovedShops, MainProducts, Plan, Shop, SignUp
-)
+from myapp.models import ApprovedShops, MainProducts, Plan, Shop, SignUp
 
 
 class MainProductSerializer(serializers.ModelSerializer):
@@ -19,7 +17,7 @@ class PlanSerializer(serializers.ModelSerializer):
 class ShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
-        fields="__all__"
+        fields = "__all__"
 
 
 class SignupSerializer(serializers.ModelSerializer):

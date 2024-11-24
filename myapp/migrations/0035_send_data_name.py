@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0034_remove_send_data_id_alter_send_data_email'),
+        ("myapp", "0034_remove_send_data_id_alter_send_data_email"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='send_data',
-            name='name',
-            field=models.CharField(default='', max_length=100),
+            model_name="send_data",
+            name="name",
+            field=models.CharField(default="", max_length=100),
             preserve_default=False,
         ),
     ]
