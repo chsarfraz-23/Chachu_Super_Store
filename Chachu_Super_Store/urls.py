@@ -15,14 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
-from django.conf.urls.static import  static
+from django.urls import path, include
+from django.conf.urls.static import static
 
 from Chachu_Super_Store import settings
 
 urlpatterns = [
     path('sarfraz/admin/', admin.site.urls),
-    path('',include('myapp.urls')),
+    path('', include('myapp.urls')),
     path('api-auth/', include('rest_framework.urls'))
 ]
-urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,9 +3,9 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
 SECRET_KEY = 'django-insecure-flep!m#f*o@m2@150rc2oh^wme^w8n5%tvg1x^f&siv+p=2q*d'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -87,17 +87,22 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS=[
+STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import os
-MEDIA_URL='/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-EMAIL_HOST="smtp.gmail.com"
-EMAIL_HOST_USER="232323sarfrazsaleem@gmail.com"
-EMAIL_HOST_PASSWORD="bxwt bbbw afja cefm"
-EMAIL_USE_TLS=True
-EMAIL_PORT=587
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "232323sarfrazsaleem@gmail.com"
+EMAIL_HOST_PASSWORD = "bxwt bbbw afja cefm"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
+# celery config
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_TIMEZONE = 'UTC'

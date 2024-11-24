@@ -2,7 +2,7 @@ from django.contrib import admin
 from myapp.models import (
     Home_page_products,
     Main_products,
-    Plan,Cart,Challan,Sign_up,Temporary,Shop,Approved_shops,Shops_data,Shop_products,Send_data,UserProfile
+    Plan, Cart, Challan, Sign_up, Temporary, Shop, ApprovedShops, ShopsData, ShopProducts, SendData, UserProfile
 )
 # Register your models here.
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
@@ -27,7 +27,7 @@ admin.site.register(Challan)
 admin.site.register(Sign_up)
 admin.site.register(Temporary)
 admin.site.register(Shop)
-admin.site.register(Approved_shops)
-admin.site.register(Shops_data)
-admin.site.register(Shop_products)
-admin.site.register(Send_data)
+admin.site.register(ApprovedShops)
+admin.site.register(ShopsData)
+admin.site.register(ShopProducts)
+admin.site.register(SendData)
