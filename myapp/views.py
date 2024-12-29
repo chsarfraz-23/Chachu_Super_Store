@@ -1,4 +1,7 @@
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect, reverse
+from rest_framework.viewsets import GenericViewSet
+
 from myapp.form import (
     HomeProducts,
     UploadChallan,
@@ -10,7 +13,7 @@ from myapp.form import (
     SignUpForm,
     LoginForm,
 )
-from myapp.models import (
+from myapp.models.myapp_models import (
     Plan,
     Cart,
     Challan,
@@ -20,35 +23,20 @@ from myapp.models import (
     ShopsData,
     ShopProducts,
     SendData,
-    UserProfile,
     SignUp,
     HomePageProducts,
     MainProducts,
 )
-from django.contrib.auth.models import User
+from myapp.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
-from rest_framework.decorators import api_view
-from rest_framework import status
-
-from rest_framework.response import Response
-from myapp.serializers import (
-    MainProductSerializer,
-    PlanSerializer,
-    ShopSerializer,
-    SignupSerializer,
-    ApprovedShopSerializer,
-)
+from rest_framework.mixins import DestroyModelMixin
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-
-# Create your views here.
 import sqlite3
-
-from myapp.tasks import shop_approval_msg
 
 connection = sqlite3.connect("db.sqlite3", check_same_thread=False)
 cursor = connection.cursor()
@@ -63,173 +51,6 @@ def my_verification(a):
             return HttpResponseRedirect(my_url)
 
     return my_function
-
-
-@api_view(["GET", "POST", "DELETE"])
-def Home(request):
-    sarfraz = SignUp.objects.all()
-    if request.method == "DELETE":
-        sarfraz.delete()
-        return Response(status=status.HTTP_200_OK)
-    elif request.method == "POST":
-        my_serializer = SignupSerializer(data=request.data)
-        if my_serializer.is_valid():
-            my_serializer.save()
-            return Response(my_serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == "GET":
-        my_serializer = SignupSerializer(sarfraz, many=True)
-        return Response(my_serializer.data, status=status.HTTP_200_OK)
-
-
-@api_view(["POST", "GET", "DELETE"])
-def post(request):
-    sarfraz = HomePageProducts.objects.all()
-    if request.method == "POST":
-        my_serializer = MainProductSerializer(data=request.data)
-        if my_serializer.is_valid():
-            my_serializer.save()
-            return Response(my_serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-    elif request.method == "GET":
-        my_serializer = MainProductSerializer(sarfraz, many=True)
-        return Response(my_serializer.data)
-    elif request.method == "DELETE":
-        sarfraz.delete()
-        return Response(status=status.HTTP_200_OK)
-
-
-@api_view(["PUT", "PATCH", "DELETE", "GET"])
-def mannually(request, id):
-    sarfraz = HomePageProducts.objects.get(pk=id)
-    if request.method == "PUT":
-        my_serializer = MainProductSerializer(data=request.data)
-        if my_serializer.is_valid():
-            my_serializer.save()
-            return Response(my_serializer.data, status=status.HTTP_200_OK)
-    elif request.method == "PATCH":
-        sarfraz.name = request.data.get("name", sarfraz.name)
-        sarfraz.description = request.data.get("description", sarfraz.description)
-        sarfraz.price = request.data.get("price", sarfraz.price)
-        sarfraz.adress = request.data.get("adress", sarfraz.adress)
-        sarfraz.discount = request.data.get("discount", sarfraz.discount)
-        sarfraz.image = request.data.get("iamge", sarfraz.image)
-        sarfraz.postal_code = request.data.get("postal_code", sarfraz.postal_code)
-        sarfraz.platform = request.data.get("platform", sarfraz.platform)
-        sarfraz.save()
-        my_serializer = MainProductSerializer(sarfraz)
-        return Response(my_serializer.data, status=status.HTTP_200_OK)
-    elif request.method == "DELETE":
-        sarfraz.delete()
-        return Response(status=status.HTTP_200_OK)
-    elif request.method == "GET":
-        my_serializer = MainProductSerializer(sarfraz)
-        return Response(my_serializer.data, status=status.HTTP_200_OK)
-
-
-@api_view(["GET", "POST", "DELETE"])
-def paid_plan(request):
-    sarfraz = Plan.objects.all()
-    if request.method == "POST":
-        my_serializer = PlanSerializer(data=request.data)
-        if my_serializer.is_valid():
-            my_serializer.save()
-            return Response(my_serializer.data, status=status.HTTP_201_CREATED)
-    elif request.method == "GET":
-        my_serializer = PlanSerializer(sarfraz, many=True)
-        return Response(my_serializer.data, status=status.HTTP_200_OK)
-    elif request.method == "DELETE":
-        sarfraz.delete()
-        return Response(status=status.HTTP_200_OK)
-
-
-@api_view(["GET", "DELETE"])
-def main_products_api(request):
-    sarfraz = MainProducts.objects.all()
-    if request.method == "GET":
-        my_serializer = MainProductSerializer(sarfraz, many=True)
-        return Response(my_serializer.data, status=status.HTTP_200_OK)
-    elif request.method == "DELETE":
-        sarfraz.delete()
-        return Response(status=status.HTTP_200_OK)
-
-
-@api_view(["POST", "GET", "DELETE", "PATCH"])
-def shop_api(request, id):
-    sarfraz = Shop.objects.get(pk=id)
-    if request.method == "POST":
-        my_serializer = ShopSerializer(data=request.data)
-        if my_serializer.is_valid():
-            my_serializer.save()
-            return Response(my_serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == "GET":
-        my_serializer = ShopSerializer(sarfraz)
-        return Response(my_serializer.data, status=status.HTTP_200_OK)
-    elif request.method == "DELETE":
-        sarfraz.delete()
-        return Response(status=status.HTTP_200_OK)
-    elif request.method == "PATCH":
-        sarfraz.name = request.data.get("name", sarfraz.name)
-        sarfraz.father_name = request.data.get("father_name", sarfraz.father_name)
-        sarfraz.phone_number = request.data.get("phone_number", sarfraz.phone_number)
-        sarfraz.email = request.data.get("email", sarfraz.email)
-        sarfraz.password = request.data.get("password", sarfraz.password)
-        sarfraz.cnic = request.data.get("cnic", sarfraz.cnic)
-        sarfraz.country = request.data.get("country", sarfraz.country)
-        sarfraz.image = request.data.get("image", sarfraz.image)
-        sarfraz.save()
-        return Response(status=status.HTTP_200_OK)
-
-
-@api_view(["DELETE"])
-def shop_overall(request):
-    sarfraz = Shop.objects.all()
-    if request.method == "DELETE":
-        sarfraz.delete()
-        return Response(status=status.HTTP_200_OK)
-
-
-@api_view(["POST", "GET", "DELETE"])
-def approve_shop_api(request):
-    approved_shops = ApprovedShops.objects.all()
-    if request.method == "POST":
-        my_serializer = ApprovedShopSerializer(data=request.data)
-        if my_serializer.is_valid():
-            shop_approved = my_serializer.save()
-            shop_approval_msg.delay(approved_shop=shop_approved)
-            return Response(status=status.HTTP_201_CREATED)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == "GET":
-        my_serializer = ApprovedShopSerializer(approved_shops, many=True)
-        return Response(my_serializer.data, status=status.HTTP_200_OK)
-
-    elif request.method == "DELETE":
-        obj = ShopsData.objects.all()
-        obj.delete()
-        obj1 = ShopProducts.objects.all()
-        obj1.delete()
-        obj2 = SendData.objects.all()
-        obj2.delete()
-        obj4 = Temporary.objects.all()
-        obj4.delete()
-        obj3 = Shop.objects.all()
-        obj3.delete()
-        approved_shops.delete()
-        return Response(status=status.HTTP_200_OK)
-
-
-@api_view(["DELETE"])
-def shop_data(request):
-    sarfraz = ShopsData.objects.all()
-    if request.method == "DELETE":
-        sarfraz.delete()
-        return Response(status=status.HTTP_200_OK)
 
 
 @login_required(login_url="home")
@@ -270,7 +91,7 @@ def paid_services(request):
 
 
 def cart(request, id):
-    obj = HomeProducts.objects.get(pk=id)
+    obj = HomePageProducts.objects.get(pk=id)
     try:
         Cart.objects.create(
             id=obj.id,
@@ -452,22 +273,11 @@ def front_page(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            username1 = request.POST["username"]
-            first_name1 = request.POST["first_name"]
-            last_name1 = request.POST["last_name"]
-            email1 = request.POST["email"]
-            password1 = request.POST["password"]
-            phone_number1 = request.POST["phone_number"]
             try:
-                User.objects.create(
-                    username=username1,
-                    first_name=first_name1,
-                    last_name=last_name1,
-                    email=email1,
-                    password=password1,
-                    is_staff=False,
+                form.cleaned_data.update(
+                    password=make_password(form.cleaned_data.get("password"))
                 )
-                UserProfile.objects.create(phone_number=phone_number1)
+                User.objects.update_or_create(**form.cleaned_data)
                 messages.success(request, "Account created Successfully !!! ")
                 my_reverse = reverse("main")
                 return HttpResponseRedirect(my_reverse)

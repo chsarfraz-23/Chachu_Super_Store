@@ -17,7 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/env" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.12 (Chachu_Super_Store) (3)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.12 (Chachu_Super_Store)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from myapp.models import ApprovedShops, MainProducts, Plan, Shop, SignUp
+from myapp.models.myapp_models import ApprovedShops, MainProducts, Plan, Shop, SignUp
 
 
 class MainProductSerializer(serializers.ModelSerializer):

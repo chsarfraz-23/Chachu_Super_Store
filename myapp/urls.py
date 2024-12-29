@@ -2,10 +2,7 @@ from django.urls import path
 from myapp.views import (
     home_page,
     upload_products,
-    post,
-    mannually,
     paid_services,
-    paid_plan,
     cart,
     check_cart,
     check_plan,
@@ -16,7 +13,6 @@ from myapp.views import (
     front_page,
     view_challan,
     reject_challan,
-    Home,
     login_view,
     logout_main,
     main_products_detail,
@@ -29,15 +25,11 @@ from myapp.views import (
     verify_shop_f,
     my_shop,
     forget_id,
-    shop_data,
-    shop_overall,
     admin_verification,
-    main_products_api,
     order_now,
     open_your_shop,
     show_shop_data,
     shopping_stores,
-    shop_api,
     approve_shop,
 )
 
@@ -83,7 +75,7 @@ urlpatterns = [
     ),
     path("main/home/login/main/check_cart/", check_cart),
     path(
-        "main/home/login/main/check_cart/remove_from_cart/<int:id>/", remove_from_cart
+        "main/home/login/main/check_cart/remove_from_cart/<str:id>/", remove_from_cart
     ),
     path("main/home/login/main/upload_products/", upload_products),
     path("main/home/login/main/upload_products/select_plan/", choose_plan),
@@ -110,7 +102,7 @@ urlpatterns = [
         "main/home/login/main/shopping_store/shops_data_home/<int:id>/shops_cart/<int:id2>/",
         shop_cart,
     ),
-    path("main/home/login/main/cart/<int:id>/", cart),
+    path("main/home/login/main/cart/<str:id>", cart),
     path("main/home/login/main/main_detail/<int:id>/", main_products_detail),
     path("main/home/login/main/main_detail/<int:id>/cart/<int:id2>/", cart_main),
     path("home/", front_page),
@@ -160,9 +152,6 @@ urlpatterns = [
     path("main/check_plan/", check_plan),
     path("main/upload_products/", upload_products),
     path("login/main/upload_products/", upload_products),
-    path("home_products/", post),
-    path("main/mannually/<int:id>/", mannually),
-    path("home/mannually/<int:id>/", mannually),
     path("main/upload_products/paid_plan/", paid_services),
     path("login/main/upload_products/paid_plan/", paid_services),
     path("main/upload_products/paid_plan/select_plan/", choose_plan),
@@ -176,7 +165,6 @@ urlpatterns = [
         "login/main/upload_products/paid_plan/select_plan/upload_challan/",
         upload_challan,
     ),
-    path("main_products/", main_products_api),
     path("main/cart/<int:id>/", cart),
     path("main/cart/<int:id>/", cart),
     path("login/main/cart/<int:id>/", cart),
@@ -187,10 +175,4 @@ urlpatterns = [
     path("sarfraz/admin_verification/", admin_verification),
     # Api section
     path("shop_approved_api/", approve_shop),
-    path("sign_up_api/", Home),
-    path("main/paid_api/", paid_plan),
-    path("login/paid_api/", paid_plan),
-    path("shop_api/<int:id>/", shop_api),
-    path("shop_data/", shop_data),
-    path("shop_overall/", shop_overall),
 ]
