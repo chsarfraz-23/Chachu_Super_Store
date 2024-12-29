@@ -474,7 +474,7 @@ def front_page(request):
             except Exception:
                 messages.success(
                     request,
-                    "The user name is already taken !! Please try with another  ",
+                    "The user name already taken !! Please try with another  ",
                 )
     context = {"form": form}
     return render(request, "front_page.html", context)
