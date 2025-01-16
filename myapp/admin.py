@@ -21,10 +21,23 @@ from myapp.models.myapp_models import (
 @register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ("id", "username", "phone_number", "email")
+    search_fields = ("id", "username", "email")
     readonly_fields = ("id", "password")
 
 
-admin.site.register(HomePageProducts)
+@register(HomePageProducts)
+class HomePageProductsAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "description",
+        "price",
+        "adress",
+    )
+    search_fields = ("id", "name", "price", "adress")
+    ordering = ("-created_at",)
+
+
 admin.site.register(MainProducts)
 admin.site.register(Plan)
 admin.site.register(Cart)

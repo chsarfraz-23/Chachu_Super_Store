@@ -31,9 +31,11 @@ from myapp.views import (
     show_shop_data,
     shopping_stores,
     approve_shop,
+    UserSignUp,
 )
 
 urlpatterns = [
+    path("signup/", UserSignUp.as_view()),
     path("login/main/logout/", logout_main),
     path("main/home/login/main/logout/", logout_main),
     path("main/home/login/main/logout/login/", login_view),

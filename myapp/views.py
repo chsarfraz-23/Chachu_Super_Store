@@ -1,6 +1,8 @@
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect, reverse
-from rest_framework.viewsets import GenericViewSet
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 
 from myapp.form import (
     HomeProducts,
@@ -38,8 +40,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 import sqlite3
 
+from myapp.serializers import UserSignUpSerializer
+
 connection = sqlite3.connect("db.sqlite3", check_same_thread=False)
 cursor = connection.cursor()
+
+
+class UserSignUp(generics.CreateAPIView):
+    serializer_class = UserSignUpSerializer
+    queryset = User.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        refresh: RefreshToken = RefreshToken.for_user(user=user)
+        return Response({"access": str(refresh), "refresh": str(refresh.access_token)})
 
 
 def my_verification(a):

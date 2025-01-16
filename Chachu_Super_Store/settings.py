@@ -12,10 +12,6 @@ SECRET_KEY = "django-insecure-flep!m#f*o@m2@150rc2oh^wme^w8n5%tvg1x^f&siv+p=2q*d
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-# Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -23,6 +19,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
     "myapp",
     "rest_framework",
     "rest_framework_simplejwt",
@@ -33,12 +30,18 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = "Chachu_Super_Store.urls"
+
+ALLOWED_HOSTS = ["*"]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 TEMPLATES = [
     {
@@ -120,7 +123,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 EMAIL_HOST = os.getenv("EMAIL_HOST", default="smtp.gmail.com")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", default="232323sarfrazsaleem@gmail.com")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", default="bxwt bbbw afja cefm")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", default="fqfk jptc xtra akwq")
 EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", default=True)
 EMAIL_PORT = os.getenv("EMAIL_PORT", default="587")
 
